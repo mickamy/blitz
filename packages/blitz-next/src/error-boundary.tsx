@@ -3,6 +3,7 @@ import {NextRouter, withRouter} from "next/router"
 import * as React from "react"
 import {RouterContext} from "./router-context"
 import _debug from "debug"
+import {ExcludeRouterProps} from "next/dist/client/with-router"
 
 const debug = _debug("blitz:errorboundary")
 
@@ -72,7 +73,123 @@ type ErrorBoundaryState = {error: Error | null}
 
 const initialState: ErrorBoundaryState = {error: null}
 
-const ErrorBoundary = withRouter(
+const ErrorBoundary:
+  | React.ComponentClass<
+      ExcludeRouterProps<
+        | {
+            readonly onResetKeysChange?: (
+              prevResetKeys: Array<unknown> | undefined,
+              resetKeys: Array<unknown> | undefined,
+            ) => void
+            readonly onReset?: (...args: unknown[]) => void
+            readonly onError?: (error: Error, info: {componentStack: string}) => void
+            readonly resetKeys?: Array<unknown>
+            readonly fallback: React.ReactElement<
+              unknown,
+              string | React.FunctionComponent | typeof React.Component
+            > | null
+            readonly FallbackComponent?: never
+            readonly fallbackRender?: never
+            readonly router: NextRouter
+            readonly children?: React.ReactNode | undefined
+          }
+        | {
+            readonly onResetKeysChange?: (
+              prevResetKeys: Array<unknown> | undefined,
+              resetKeys: Array<unknown> | undefined,
+            ) => void
+            readonly onReset?: (...args: unknown[]) => void
+            readonly onError?: (error: Error, info: {componentStack: string}) => void
+            readonly resetKeys?: Array<unknown>
+            readonly fallback?: never
+            readonly FallbackComponent: React.ComponentType<ErrorFallbackProps>
+            readonly fallbackRender?: never
+            readonly router: NextRouter
+            readonly children?: React.ReactNode | undefined
+          }
+        | {
+            readonly onResetKeysChange?: (
+              prevResetKeys: Array<unknown> | undefined,
+              resetKeys: Array<unknown> | undefined,
+            ) => void
+            readonly onReset?: (...args: unknown[]) => void
+            readonly onError?: (error: Error, info: {componentStack: string}) => void
+            readonly resetKeys?: Array<unknown>
+            readonly fallback?: never
+            readonly FallbackComponent?: never
+            readonly fallbackRender: typeof FallbackRender
+            readonly router: NextRouter
+            readonly children?: React.ReactNode | undefined
+          }
+        | (ErrorBoundaryPropsWithFallback & {router: NextRouter} & {
+            children?: React.ReactNode | undefined
+          })
+        | (ErrorBoundaryPropsWithComponent & {router: NextRouter} & {
+            children?: React.ReactNode | undefined
+          })
+        | (ErrorBoundaryPropsWithRender & {router: NextRouter} & {
+            children?: React.ReactNode | undefined
+          })
+      >
+    >
+  | React.FunctionComponent<
+      ExcludeRouterProps<
+        | {
+            readonly onResetKeysChange?: (
+              prevResetKeys: Array<unknown> | undefined,
+              resetKeys: Array<unknown> | undefined,
+            ) => void
+            readonly onReset?: (...args: unknown[]) => void
+            readonly onError?: (error: Error, info: {componentStack: string}) => void
+            readonly resetKeys?: Array<unknown>
+            readonly fallback: React.ReactElement<
+              unknown,
+              string | React.FunctionComponent | typeof React.Component
+            > | null
+            readonly FallbackComponent?: never
+            readonly fallbackRender?: never
+            readonly router: NextRouter
+            readonly children?: React.ReactNode | undefined
+          }
+        | {
+            readonly onResetKeysChange?: (
+              prevResetKeys: Array<unknown> | undefined,
+              resetKeys: Array<unknown> | undefined,
+            ) => void
+            readonly onReset?: (...args: unknown[]) => void
+            readonly onError?: (error: Error, info: {componentStack: string}) => void
+            readonly resetKeys?: Array<unknown>
+            readonly fallback?: never
+            readonly FallbackComponent: React.ComponentType<ErrorFallbackProps>
+            readonly fallbackRender?: never
+            readonly router: NextRouter
+            readonly children?: React.ReactNode | undefined
+          }
+        | {
+            readonly onResetKeysChange?: (
+              prevResetKeys: Array<unknown> | undefined,
+              resetKeys: Array<unknown> | undefined,
+            ) => void
+            readonly onReset?: (...args: unknown[]) => void
+            readonly onError?: (error: Error, info: {componentStack: string}) => void
+            readonly resetKeys?: Array<unknown>
+            readonly fallback?: never
+            readonly FallbackComponent?: never
+            readonly fallbackRender: typeof FallbackRender
+            readonly router: NextRouter
+            readonly children?: React.ReactNode | undefined
+          }
+        | (ErrorBoundaryPropsWithFallback & {router: NextRouter} & {
+            children?: React.ReactNode | undefined
+          })
+        | (ErrorBoundaryPropsWithComponent & {router: NextRouter} & {
+            children?: React.ReactNode | undefined
+          })
+        | (ErrorBoundaryPropsWithRender & {router: NextRouter} & {
+            children?: React.ReactNode | undefined
+          })
+      >
+    > = withRouter(
   class ErrorBoundaryRoot extends React.Component<
     React.PropsWithRef<React.PropsWithChildren<ErrorBoundaryProps>>,
     ErrorBoundaryState
