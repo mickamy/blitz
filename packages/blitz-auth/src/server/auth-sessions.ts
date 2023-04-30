@@ -181,7 +181,7 @@ export async function getSession(
 }
 
 export async function getBlitzContext(): Promise<Ctx> {
-  const {headers, cookies} = await import("next/headers").catch(() => {
+  const {headers, cookies}: any | void = await import("next/headers").catch(() => {
     throw new Error(
       "getBlitzContext() can only be used in React Server Components in Nextjs 13 or higher",
     )
