@@ -1,6 +1,6 @@
 {
   "name": "@mickamy/blitzjs-auth",
-  "version": "2.0.0-beta.26",
+  "version": "2.0.0-beta.26-fix-expose",
   "homepage": "https://blitzjs.com/",
   "repository": {
     "type": "git",
